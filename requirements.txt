@@ -1,0 +1,7 @@
+pandas
+streamlit
+numpy
+ydata-profiling
+setuptools
+sklearn.impute
+sklearn.preprocessing
