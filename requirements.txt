@@ -3,5 +3,4 @@ streamlit
 numpy
 ydata-profiling
 setuptools
-sklearn.impute
-sklearn.preprocessing
+scikit-learn
