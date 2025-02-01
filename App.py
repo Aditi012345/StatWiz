@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 import time
 from sklearn.impute import SimpleImputer
 import mymodule as mm
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import RobustScaler
 
 # App header and description
 st.header("Welcome to StatWiz")
@@ -51,7 +51,7 @@ if uploaded_file is not None:
                 imputer = SimpleImputer(strategy='mean')  # Impute numerical columns
                 outliers = mm.detect_outliers_iqr(df[key]).tolist()
                 if outliers:
-                    scaler = MinMaxScaler()  # Scale numerical columns with outliers
+                    scaler = RobustScaler()  # Scale numerical columns with outliers
                     df[key] = scaler.fit_transform(df[[key]]).ravel()
             df[key] = imputer.fit_transform(df[[key]]).ravel()
 
