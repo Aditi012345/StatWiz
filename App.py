@@ -21,10 +21,10 @@ uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
 
 if uploaded_file is not None:
     # Display dataset preview
-    st.markdown("<h5>This is your analysis before cleaning and preprocessing the data:</h5>", unsafe_allow_html=True)
     df = pd.read_csv(uploaded_file)
     st.write("Here's the preview of your uploaded dataset")
     st.write(df.head())
+    st.markdown("<h5>This is your analysis before cleaning and preprocessing the data:</h5>", unsafe_allow_html=True)
 
     # Generate and display EDA report before cleaning
     report = ProfileReport(df, explorative=True)
@@ -36,6 +36,7 @@ if uploaded_file is not None:
 
     # Data cleaning and preprocessing
     st.markdown("<h6>This is your analysis after cleaning and preprocessing the data:</h6>", unsafe_allow_html=True)
+    df.drop_duplicates(inplace=True) # Removes duplicated rows
     shape = df.shape
     columns_with_nulls = df.columns[df.isnull().any()].tolist()
     percent_null_dict = (df.isna().sum() / df.shape[0] * 100).to_dict()
