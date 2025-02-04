@@ -63,6 +63,13 @@ if uploaded_file is not None:
         time.sleep(0.8) 
         loading_bar.progress(percent_complete)
     components.html(report2.to_html(), width=650, height=1000, scrolling=True)
-
+    csv = df.to_csv(index=False).encode('utf-8')
+    st.markdown("<h6>Download your cleaned dataset:</h6>", unsafe_allow_html=True)
+    st.download_button(
+    label="Download Cleaned Data as CSV",
+    data=csv,
+    file_name="cleaned_dataset.csv",
+    mime="text/csv"
+)
 else:
     st.write("Please upload a CSV file to get started.")
