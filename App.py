@@ -49,9 +49,13 @@ if uploaded_file is not None:
             if dtype == 'object':
                 imputer = SimpleImputer(strategy='most_frequent')  # Impute categorical columns
             else:
-                imputer = SimpleImputer(strategy='mean')  # Impute numerical columns
                 outliers = mm.detect_outliers_iqr(df[key]).tolist()
                 if outliers:
+                    imputer = SimpleImputer(strategy='median')  # Impute numerical columns
+                    scaler = RobustScaler()  # Scale numerical columns with outliers
+                    df[key] = scaler.fit_transform(df[[key]]).ravel()
+                else:
+                    imputer = SimpleImputer(strategy='mean')  # Impute numerical columns
                     scaler = RobustScaler()  # Scale numerical columns with outliers
                     df[key] = scaler.fit_transform(df[[key]]).ravel()
             df[key] = imputer.fit_transform(df[[key]]).ravel()
